@@ -20,9 +20,11 @@ Enemy.prototype.update = function(dt) {
     this.x += this.speed * dt;
 
     // make enemies loop to left side of canvas after reaching canvas.width
-    if (this.x >= 505) {
+    if (this.x >= 900) {
         this.x = 0;
     }
+
+
 
     // Check for collision with enemies or barrier-walls
     checkCollision(this);
@@ -40,7 +42,7 @@ var Player = function(x, y, speed) {
     this.x = x;
     this.y = y;
     this.speed = speed;
-    this.sprite = 'images/char-boy.png';
+    this.sprite = 'images/char-horn-girl.png';
 };
 
 Player.prototype.update = function() {
@@ -117,8 +119,8 @@ var checkCollision = function(anEnemy) {
     if (player.y > 383 ) {
         player.y = 383;
     }
-    if (player.x > 402.5) {
-        player.x = 402.5;
+    if (player.x > 900) {
+        player.x = 900;
     }
     if (player.x < 2.5) {
         player.x = 2.5;
@@ -144,7 +146,7 @@ var increaseDifficulty = function(numEnemies) {
 // Enemy randomly placed vertically within section of canvas
 // Declare new score and gameLevel variables to store score and level
 var allEnemies = [];
-var player = new Player(202.5, 383, 50);
+var player = new Player(450, 383, 50);
 var score = 0;
 var gameLevel = 1;
 var scoreLevelDiv = document.createElement('div');
