@@ -41,12 +41,12 @@ var Player = function(x, y, speed) {
     this.x = x;
     this.y = y;
     this.speed = speed;
-    this.sprite = '';
+    this.sprite = 'images/char-pink-girl.png';
 };
 
 Player.prototype.update = function() {
     // function not needed right now
-}
+};
 
 // Draw the player on the screen, required method for game
 // Display score
@@ -78,18 +78,18 @@ var displayScoreLevel = function(aScore, aLevel) {
     var firstCanvasTag = canvas[0];
 
     // Player Score and Level
-    scoreLevelDiv.innerHTML = 'Score: ' + aScore
-        + ' / ' + 'Level: ' + aLevel;
+    scoreLevelDiv.innerHTML = 'Score: ' + aScore +
+        ' / ' + 'Level: ' + aLevel;
     document.body.insertBefore(scoreLevelDiv, firstCanvasTag[0]);
 };
 
 var checkCollision = function(anEnemy) {
     // check for collision between enemy and player
     if (
-        player.y + 131 >= anEnemy.y + 90
-        && player.x + 25 <= anEnemy.x + 88
-        && player.y + 73 <= anEnemy.y + 135
-        && player.x + 76 >= anEnemy.x + 11) {
+        player.y + 131 >= anEnemy.y + 90 &&
+        player.x + 25 <= anEnemy.x + 88 &&
+        player.y + 73 <= anEnemy.y + 135 &&
+        player.x + 76 >= anEnemy.x + 11) {
         console.log('collided');
         player.x = 202.5;
         player.y = 383;
@@ -98,7 +98,7 @@ var checkCollision = function(anEnemy) {
     // check for player reaching top of canvas and winning the game
     // if player wins, add 1 to the score and level
     // pass score as an argument to the increaseDifficulty function
-    if (player.y + 63 <= 0) {        
+    if (player.y + 63 <= 0) {
         player.x = 202.5;
         player.y = 383;
         console.log('you made it!');
@@ -115,7 +115,7 @@ var checkCollision = function(anEnemy) {
 
     // check if player runs into left, bottom, or right canvas walls
     // prevent player from moving beyond canvas wall boundaries
-    if (player.y > 383 ) {
+    if (player.y > 383) {
         player.y = 383;
     }
     if (player.x > 900) {
@@ -134,7 +134,7 @@ var increaseDifficulty = function(numEnemies) {
     // load new set of enemies
     for (var i = 0; i <= numEnemies; i++) {
         var enemy = new Enemy(0, Math.random() * 184 + 50, Math.random() * 256);
-        
+
         allEnemies.push(enemy);
     }
 };
@@ -180,16 +180,16 @@ var span = document.getElementsByClassName("close")[0];
 // When the user clicks on the button, open the modal 
 btn.onclick = function() {
     modal.style.display = "block";
-}
+};
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
     modal.style.display = "none";
-}
+};
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
-}
+};
