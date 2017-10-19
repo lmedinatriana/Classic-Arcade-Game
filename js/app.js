@@ -19,14 +19,13 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     this.x += this.speed * dt;
 
-    // make enemies loop to left side of canvas after reaching canvas.width
+    // Enemies will loop at the start position after reaching canvas
     if (this.x >= 900) {
         this.x = 0;
     }
 
 
-
-    // Check for collision with enemies or barrier-walls
+    // Collision with enemies
     checkCollision(this);
 };
 
@@ -42,7 +41,7 @@ var Player = function(x, y, speed) {
     this.x = x;
     this.y = y;
     this.speed = speed;
-    this.sprite = 'images/char-horn-girl.png';
+    this.sprite = '';
 };
 
 Player.prototype.update = function() {
@@ -57,20 +56,20 @@ Player.prototype.render = function() {
 
 };
 
-Player.prototype.handleInput = function(keyPress) {
-    if (keyPress == 'left') {
+Player.prototype.handleInput = function(pressedKey) {
+    if (pressedKey == 'left') {
         player.x -= player.speed;
     }
-    if (keyPress == 'up') {
+    if (pressedKey == 'up') {
         player.y -= player.speed - 20;
     }
-    if (keyPress == 'right') {
+    if (pressedKey == 'right') {
         player.x += player.speed;
     }
-    if (keyPress == 'down') {
+    if (pressedKey == 'down') {
         player.y += player.speed - 20;
     }
-    console.log('keyPress is: ' + keyPress);
+    console.log('pressedKey is: ' + pressedKey);
 };
 
 // Function to display player's score
@@ -78,7 +77,7 @@ var displayScoreLevel = function(aScore, aLevel) {
     var canvas = document.getElementsByTagName('canvas');
     var firstCanvasTag = canvas[0];
 
-    // add player score and level to div element created
+    // Player Score and Level
     scoreLevelDiv.innerHTML = 'Score: ' + aScore
         + ' / ' + 'Level: ' + aLevel;
     document.body.insertBefore(scoreLevelDiv, firstCanvasTag[0]);
@@ -105,7 +104,7 @@ var checkCollision = function(anEnemy) {
         console.log('you made it!');
 
         ctx.fillStyle = 'white';
-        ctx.fillRect(0, 0, 505, 171);
+        ctx.fillRect(0, 0, 1000, 171);
 
         score += 1;
         gameLevel += 1;
@@ -146,11 +145,11 @@ var increaseDifficulty = function(numEnemies) {
 // Enemy randomly placed vertically within section of canvas
 // Declare new score and gameLevel variables to store score and level
 var allEnemies = [];
-var player = new Player(450, 383, 50);
+var player = new Player(450, 383, 40);
 var score = 0;
-var gameLevel = 1;
+var gameLevel = 0;
 var scoreLevelDiv = document.createElement('div');
-var enemy = new Enemy(0, Math.random() * 184 + 50, Math.random() * 256);
+var enemy = new Enemy(0, Math.random() * 184 + 40, Math.random() * 256);
 
 allEnemies.push(enemy);
 
@@ -167,3 +166,30 @@ document.addEventListener('keydown', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
     console.log(allowedKeys[e.keyCode]);
 });
+
+
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}

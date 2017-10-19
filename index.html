@@ -1,13 +1,45 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Effective JavaScript: Frogger</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <script src="js/resources.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/engine.js"></script>
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<title>Effective JavaScript: Frogger</title>
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+		<div class="tCenter">
+			<h1>Arcade Game</h1>
+			<!-- Jquery Modal Starts -->
+			<!-- Trigger/Open The Modal -->
+			<button id="myBtn">CHARACTERS</button>
+		</div>
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+			<!-- Modal content -->
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<div class="tCenter">
+					<div class="thumbnail">
+						<h2>Super Boy</h2>
+						<img src="images/char-boy.png">
+					</div>
+					<div class="thumbnail">
+						<h2>Cat Girl</h2>
+						<img src="images/char-cat-girl.png">
+					</div>
+					<div class="thumbnail">
+						<h2>Horn Girl</h2>
+						<img src="images/char-horn-girl.png">
+					</div>
+					<div class="thumbnail">
+						<h2>Pink Girl</h2>
+						<img src="images/char-pink-girl.png">
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Jquery Modal Ends -->
+		<script src="js/resources.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/engine.js"></script>
+	</body>
 </html>
