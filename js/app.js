@@ -1,3 +1,6 @@
+// Whole-script strict mode syntax
+'use strict';
+
 // Enemies our player must avoid
 var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
@@ -17,16 +20,22 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x += this.speed * dt;
+     this.x += this.speed * dt;
 
-    // Enemies will loop at the start position after reaching canvas
-    if (this.x >= 900) {
-        this.x = 0;
+    // when off canvas, reset position of enemy to move across again
+    if (this.x > 900) {
+        this.x = -100;
+        this.speed = 100 + Math.floor(Math.random() * 512);
     }
 
-
-    // Collision with enemies
-    checkCollision(this);
+    // Collision between player and enemies
+    if (player.x < this.x + 60 &&
+        player.x + 37 > this.x &&
+        player.y < this.y + 25 &&
+        30 + player.y > this.y) {
+        player.x = 200;
+        player.y = 380;
+    }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -41,63 +50,14 @@ var Player = function(x, y, speed) {
     this.x = x;
     this.y = y;
     this.speed = speed;
-    this.sprite = 'images/char-pink-girl.png';
+    this.sprite = 'images/char-horn-girl.png';
 };
 
-Player.prototype.update = function() {
+
+Player.prototype.update = function(dt) {
     // function not needed right now
-};
 
-// Draw the player on the screen, required method for game
-// Display score
-Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    displayScoreLevel(score, gameLevel);
-
-};
-
-Player.prototype.handleInput = function(pressedKey) {
-    if (pressedKey == 'left') {
-        player.x -= player.speed;
-    }
-    if (pressedKey == 'up') {
-        player.y -= player.speed - 20;
-    }
-    if (pressedKey == 'right') {
-        player.x += player.speed;
-    }
-    if (pressedKey == 'down') {
-        player.y += player.speed - 20;
-    }
-    console.log('pressedKey is: ' + pressedKey);
-};
-
-// Function to display player's score
-var displayScoreLevel = function(aScore, aLevel) {
-    var canvas = document.getElementsByTagName('canvas');
-    var firstCanvasTag = canvas[0];
-
-    // Player Score and Level
-    scoreLevelDiv.innerHTML = 'Score: ' + aScore +
-        ' / ' + 'Level: ' + aLevel;
-    document.body.insertBefore(scoreLevelDiv, firstCanvasTag[0]);
-};
-
-var checkCollision = function(anEnemy) {
-    // check for collision between enemy and player
-    if (
-        player.y + 131 >= anEnemy.y + 90 &&
-        player.x + 25 <= anEnemy.x + 88 &&
-        player.y + 73 <= anEnemy.y + 135 &&
-        player.x + 76 >= anEnemy.x + 11) {
-        console.log('collided');
-        player.x = 202.5;
-        player.y = 383;
-    }
-
-    // check for player reaching top of canvas and winning the game
-    // if player wins, add 1 to the score and level
-    // pass score as an argument to the increaseDifficulty function
+     // increaseDifficulty function
     if (player.y + 63 <= 0) {
         player.x = 202.5;
         player.y = 383;
@@ -113,8 +73,8 @@ var checkCollision = function(anEnemy) {
 
     }
 
-    // check if player runs into left, bottom, or right canvas walls
-    // prevent player from moving beyond canvas wall boundaries
+    // Canvas Limit
+    // Character will not go outside the canvas
     if (player.y > 383) {
         player.y = 383;
     }
@@ -126,7 +86,43 @@ var checkCollision = function(anEnemy) {
     }
 };
 
-// Increase number of enemies on screen based on player's score
+// Draw the player on the screen, required method for game
+// Display score
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    displayScoreLevel(score, gameLevel);
+
+};
+
+Player.prototype.handleInput = function(pressedKey) {
+    if (pressedKey == 'left') {
+        this.x -= this.speed;
+    }
+    if (pressedKey == 'up') {
+        this.y -=this.speed - 20;
+    }
+    if (pressedKey == 'right') {
+        this.x += this.speed;
+    }
+    if (pressedKey == 'down') {
+        this.y += this.speed - 20;
+    }
+    console.log('pressedKey is: ' + pressedKey);
+};
+
+// Function to display player's score
+var displayScoreLevel = function(aScore, aLevel) {
+    var canvas = document.getElementsByTagName('canvas');
+    var firstCanvasTag = canvas[0];
+
+    // Player Score and Level
+    scoreLevelDiv.innerHTML = 'Score: ' + aScore +
+        ' / ' + 'Level: ' + aLevel;
+    document.body.insertBefore(scoreLevelDiv, firstCanvasTag[0]);
+};
+
+
+// Number of enemies
 var increaseDifficulty = function(numEnemies) {
     // remove all previous enemies on canvas
     allEnemies.length = 0;
@@ -142,8 +138,7 @@ var increaseDifficulty = function(numEnemies) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-// Enemy randomly placed vertically within section of canvas
-// Declare new score and gameLevel variables to store score and level
+// New score and level
 var allEnemies = [];
 var player = new Player(450, 383, 40);
 var score = 0;
@@ -153,8 +148,6 @@ var enemy = new Enemy(0, Math.random() * 184 + 40, Math.random() * 256);
 
 allEnemies.push(enemy);
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keydown', function(e) {
     var allowedKeys = {
         37: 'left',
@@ -166,6 +159,7 @@ document.addEventListener('keydown', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
     console.log(allowedKeys[e.keyCode]);
 });
+
 
 
 // Get the modal
