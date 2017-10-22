@@ -29,12 +29,11 @@ Enemy.prototype.update = function(dt) {
     }
 
     // Collision between player and enemies
-    if (player.x < this.x + 60 &&
-        player.x + 37 > this.x &&
-        player.y < this.y + 25 &&
-        30 + player.y > this.y) {
-        player.x = 200;
-        player.y = 380;
+    if (player.x + 25 <= this.x + 88 &&
+        player.x + 76 >= this.x + 11 &&
+        player.y + 131 >= this.y + 90 &&
+        73 + player.y <= this.y + 135) {
+         player.reset();
     }
 };
 
@@ -58,9 +57,9 @@ Player.prototype.update = function(dt) {
     // function not needed right now
 
      // increaseDifficulty function
-    if (player.y + 63 <= 0) {
-        player.x = 202.5;
-        player.y = 383;
+    if (this.y + 63 <= 0) {
+        this.x = 202.5;
+        this.y = 383;
         console.log('you made it!');
 
         ctx.fillStyle = 'white';
@@ -75,14 +74,14 @@ Player.prototype.update = function(dt) {
 
     // Canvas Limit
     // Character will not go outside the canvas
-    if (player.y > 383) {
-        player.y = 383;
+    if (this.y > 383) {
+        this.y = 383;
     }
-    if (player.x > 900) {
-        player.x = 900;
+    if (this.x > 900) {
+        this.x = 900;
     }
-    if (player.x < 2.5) {
-        player.x = 2.5;
+    if (this.x < 2.5) {
+        this.x = 2.5;
     }
 };
 
@@ -133,6 +132,11 @@ var increaseDifficulty = function(numEnemies) {
 
         allEnemies.push(enemy);
     }
+};
+
+Player.prototype.reset = function() {
+  this.x = 200;
+  this.y = 380;
 };
 
 // Now instantiate your objects.

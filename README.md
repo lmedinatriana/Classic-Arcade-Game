@@ -22,9 +22,7 @@ Frogger Game Description
 Project from the Front-End Web Developer Nanodegree by Udacity: 
 
 ⋅⋅*Object-Oriented JavaScript
-⋅⋅*HTML5 Canvas.
-
-Your implementation must at minimum follow the basic functionality, but you can add additional optional functionality to your game, if you wish.
+⋅⋅*HTML5 Canvas
 
 ##Basic Functionality
 In this game you have a Player and Enemies (Bugs). The goal of the player is to reach the water, without colliding into any one of the enemies. The player can move left, right, up and down. The enemies move in varying speeds on the paved block portion of the scene. Once a the player collides with an enemy, the game is reset and the player moves back to the start square. Once the player reaches the water the game is won.
